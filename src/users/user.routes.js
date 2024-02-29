@@ -1,10 +1,14 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { usuariosPost } from "./user.controller.js";
+import { userPost, userPut } from "./user.controller.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
+import { validarJWT } from "../middlewares/validar-jwt.js";
 
 const router = Router();
 
+router.use(validarCampos);
+
+router.put('/', validarJWT, userPut);
 
 router.post(
     "/",
@@ -17,6 +21,6 @@ router.post(
         check("firstname", "Ingrese su nombre"),
         check("lastname", "Ingrese su apellidoF"),
         validarCampos,
-    ], usuariosPost);
+    ], userPost);
 
 export default router;

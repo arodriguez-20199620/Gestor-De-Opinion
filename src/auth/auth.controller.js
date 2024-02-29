@@ -27,11 +27,17 @@ export const login = async (req, res) => {
                 msg: "La contraseña es incorrecta",
             });
         }
+
         //generar el JWT
         const token = await generarJWT(user.id);
-        res.status(200).send({
+
+        const userData = {
+            username: user.username,
+            mail: user.mail,
+        };
+        res.status(200).json({
             msg: 'Login Ok!!!',
-            user,
+            user: userData,
             token
         });
 
