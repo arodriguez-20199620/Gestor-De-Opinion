@@ -3,6 +3,7 @@ import bcryptjs from 'bcryptjs';
 import User from './user.model.js';
 
 const userPost = async (req, res) => {
+
     const { username, mail, password, firstname, lastname } = req.body;
     const user = new User({ username, mail, password, firstname, lastname });
 
@@ -16,17 +17,23 @@ const userPost = async (req, res) => {
     res.status(201).json({
         user
     });
+
+
 }
 
 
 const userPut = async (req, res) => {
     try {
-        const estudianteId = req.user._id;
-        const { _id, ...userUpdate } = req.body;
+        const userId = req.user._id;
+        const { _id, password: newPassword, ...userUpdate } = req.body;
+        if (newPassword) {
+            const salt = bcryptjs.genSaltSync();
+            userUpdate.password = bcryptjs.hashSync(newPassword, salt);
+        }
+        
+        await User.findByIdAndUpdate(userId, userUpdate);
 
-        await User.findByIdAndUpdate(estudianteId, userUpdate);
-
-        const user = await User.findOne({ _id: estudianteId });
+        const user = await User.findOne({ _id: userId });
 
         const userData = {
             username: user.username,

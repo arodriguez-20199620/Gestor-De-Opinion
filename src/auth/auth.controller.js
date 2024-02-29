@@ -22,6 +22,7 @@ export const login = async (req, res) => {
         }
         // verificar la contraseña
         const validPassword = bcryptjs.compareSync(password, user.password);
+
         if (!validPassword) {
             return res.status(400).json({
                 msg: "La contraseña es incorrecta",
@@ -35,6 +36,7 @@ export const login = async (req, res) => {
             username: user.username,
             mail: user.mail,
         };
+
         res.status(200).json({
             msg: 'Login Ok!!!',
             user: userData,
