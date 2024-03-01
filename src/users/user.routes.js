@@ -13,24 +13,24 @@ const router = Router();
 
 router.put('/', validarJWT,
     [
-        check("username", "Ingrese un nombre de usuario").not().isEmpty(),
+        check("username", "enter a username").not().isEmpty(),
         check("username").custom(userNameExists),
         check("password").custom(validatePassword),
-        check("firstname", "Ingrese su nombre").not().isEmpty(),
-        check("lastname", "Ingrese su apellido").not().isEmpty(),
+        check("firstname", "enter your name").not().isEmpty(),
+        check("lastname", "Enter your last name").not().isEmpty(),
         validateFields,
     ], userPut);
 
 router.post(
     "/",
     [
-        check("username", "Ingrese un nombre de usuario").not().isEmpty(),
+        check("username", "Enter a username").not().isEmpty(),
         check("username").custom(userNameExists),
-        check("mail", "Este no es un correo válido").isEmail(),
+        check("mail", "This is not a valid email").isEmail(),
         check("mail").custom(emailExists),
         check("password").custom(validatePassword),
-        check("firstname", "Ingrese su nombre").not().isEmpty(),
-        check("lastname", "Ingrese su apellido").not().isEmpty(),
+        check("firstname", "enter your name").not().isEmpty(),
+        check("lastname", "Enter your last name").not().isEmpty(),
         validateFields,
     ], userPost);
 

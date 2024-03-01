@@ -1,5 +1,5 @@
 import { validationResult } from "express-validator";
-import Publication from "../publications/publications.model.js";
+import Posts from "../posts/posts.model.js";
 
 const validateFields = (req, res, next) => {
     try {
@@ -19,7 +19,7 @@ const validateAuthor = async (req, res, next) => {
     const userId = req.user.id;
 
     try {
-        const existingPost = await Publication.findById(postId);
+        const existingPost = await Posts.findById(postId);
 
         if (!existingPost) {
             return res.status(404).json({ error: 'Post not found' });

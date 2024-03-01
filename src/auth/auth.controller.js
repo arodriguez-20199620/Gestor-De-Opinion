@@ -11,13 +11,13 @@ export const login = async (req, res) => {
 
         if (!user) {
             return res.status(400).json({
-                msg: "Credenciales incorrectas, Correo no existe en la base de datos",
+                msg: "Incorrect credentials, Email does not exist in the database",
             });
         }
         //verificar si el ususario está activo
         if (!user.status) {
             return res.status(400).json({
-                msg: "El usuario no existe en la base de datos",
+                msg: "The user does not exist in the database",
             });
         }
         // verificar la contraseña
@@ -25,7 +25,7 @@ export const login = async (req, res) => {
 
         if (!validPassword) {
             return res.status(400).json({
-                msg: "La contraseña es incorrecta",
+                msg: "Password is incorrect",
             });
         }
 
@@ -47,7 +47,7 @@ export const login = async (req, res) => {
     } catch (e) {
         console.log(e);
         res.status(500).json({
-            msg: "Comuniquese con el administrador",
+            msg: "Contact administrator",
         });
     }
 }

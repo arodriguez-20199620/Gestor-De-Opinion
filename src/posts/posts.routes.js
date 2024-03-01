@@ -4,10 +4,10 @@ import { check } from "express-validator";
 // middlewares & helpers
 import { validateFields, validateAuthor } from "../middlewares/validar-campos.js";
 import { validarJWT } from "../middlewares/validar-jwt.js";
-import { existingPost } from "../helpers/publications-validations.js";
+import { existingPost } from "../helpers/posts-validations.js";
 
 // controlador
-import { publicationPost, publicationPut } from "./publications.controller.js";
+import { createPosts, updatePosts } from "./posts.controller.js";
 
 
 const router = Router();
@@ -19,7 +19,7 @@ router.post('/',
         check("category"),
         check("text"),
         validateFields,
-    ], publicationPost);
+    ], createPosts);
 
 router.put('/:id', validarJWT,
     [
@@ -27,6 +27,6 @@ router.put('/:id', validarJWT,
         check("id").custom(existingPost),
         validateFields,
         validateAuthor,
-    ], publicationPut);
+    ], updatePosts);
 
 export default router;

@@ -5,7 +5,7 @@ const emailExists = async (mail = '') => {
     try {
         const emailExists = await User.findOne({ mail });
         if (emailExists) {
-            throw new Error(`Correo electrónico "${mail}" ya registrado. Elija otro.`);
+            throw new Error(`Email "${mail}" already registered. Choose another.`);
         }
     } catch (error) {
         throw error;
@@ -16,7 +16,7 @@ const userNameExists = async (username = '') => {
     try {
         const userNameExists = await User.findOne({ username });
         if (userNameExists) {
-            throw new Error(`El nombre de usuario ${username} no está disponible`);
+            throw new Error(`Username ${username} is not available`);
         }
     } catch (error) {
         throw error;
@@ -27,10 +27,10 @@ const validatePassword = async (password = '') => {
     const result = zxcvbn(password);
 
     if (result.score < 2) {
-        throw new Error(`La contraseña no es lo suficientemente fuerte. Sugerencias: ${result.feedback.suggestions.join(', ')}`);
+        throw new Error(`The password is not safe enough.`);
     }
     if (password.length < 6 ) {
-        throw new Error('La contraseña debe tener al menos 8 caracteres.');
+        throw new Error('The password must be at least 6 characters.');
     }
 };
 
