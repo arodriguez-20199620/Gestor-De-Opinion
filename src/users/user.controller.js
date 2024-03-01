@@ -12,15 +12,18 @@ const userPost = async (req, res) => {
 
     //guardar datos
     await user.save();
-    console.log("Se registro su usuario correctamente");
+    console.log('Your user is registered correctly');
+
+    const userData = {
+        user
+    };
 
     res.status(201).json({
-        user
+        user: userData
     });
 
 
 }
-
 
 const userPut = async (req, res) => {
     try {
@@ -30,7 +33,7 @@ const userPut = async (req, res) => {
             const salt = bcryptjs.genSaltSync();
             userUpdate.password = bcryptjs.hashSync(newPassword, salt);
         }
-        
+
         await User.findByIdAndUpdate(userId, userUpdate);
 
         const user = await User.findOne({ _id: userId });
@@ -43,7 +46,7 @@ const userPut = async (req, res) => {
         };
 
         res.status(200).json({
-            msg: 'Actualizado exitosamente',
+            msg: 'Successfully updated',
             user: userData
         });
     } catch (error) {
