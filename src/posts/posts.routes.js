@@ -7,7 +7,7 @@ import { validarJWT } from "../middlewares/validar-jwt.js";
 import { existingPost } from "../helpers/posts-validations.js";
 
 // controlador
-import { createPosts, updatePosts } from "./posts.controller.js";
+import { createPosts, updatePosts, deletePost } from "./posts.controller.js";
 
 
 const router = Router();
@@ -15,7 +15,7 @@ const router = Router();
 router.post('/',
     validarJWT,
     [
-        check("title", "Campo obligatorio").not().isEmpty(),
+        check("title", "Obligatory field").not().isEmpty(),
         check("category"),
         check("text"),
         validateFields,
@@ -23,10 +23,19 @@ router.post('/',
 
 router.put('/:id', validarJWT,
     [
-        check("id", "El id no es un formato valido de MongoDB").isMongoId(),
+        check("id", "The id is not a valid MongoDB format").isMongoId(),
         check("id").custom(existingPost),
         validateFields,
         validateAuthor,
     ], updatePosts);
+
+
+router.delete('/:id', validarJWT,
+    [
+        check("id", "The id is not a valid MongoDB format").isMongoId(),
+        check("id").custom(existingPost),
+        validateFields,
+        validateAuthor,
+    ], deletePost);
 
 export default router;
