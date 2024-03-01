@@ -20,6 +20,10 @@ const PublicationsSchema = mongoose.Schema({
     creation_date: {
         type: Date, default: Date.now
     },
+    state: {
+        type: Boolean,
+        default: true
+    },
 });
 
 export default mongoose.model('Publications', PublicationsSchema);

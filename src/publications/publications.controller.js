@@ -6,13 +6,12 @@ const publicationPost = async (req, res) => {
     const { title, category, text } = req.body;
 
     try {
-        // Crea una nueva instancia de ObjectId usando 'new'
-        const autorId = new mongoose.Types.ObjectId(userId);
 
-        // Crea una nueva instancia de Publicacion
-        const publication = new Publications({ title, category, text, autor_id: autorId });
+        const publication = new Publications({
+            title, category, text, author_id: new mongoose.Types.ObjectId(userId),
 
-        // Guarda la publicación en la base de datos
+        });
+
         await publication.save();
 
         res.status(201).json({
@@ -20,8 +19,26 @@ const publicationPost = async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error interno del servidor');
+        res.status(500).json('Internal Server Error');
     }
 }
 
-export { publicationPost };
+const publicationPut = async (req, res) => {
+    const { id } = req.params;
+    const { _id, author_id, ...rest } = req.body;
+
+    try {
+        await Publications.findByIdAndUpdate(id, rest)
+
+        const publication = await Publications.findOne({ _id: id })
+
+        res.status(200).json({
+            publication
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json('Internal Server Error');
+    }
+};
+
+export { publicationPost, publicationPut};
