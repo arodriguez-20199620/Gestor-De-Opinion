@@ -29,9 +29,11 @@ const validatePassword = async (password = '') => {
     if (result.score < 2) {
         throw new Error(`The password is not safe enough.`);
     }
-    if (password.length < 6 ) {
+    if (password.length < 6) {
         throw new Error('The password must be at least 6 characters.');
     }
 };
 
-export { emailExists, userNameExists, validatePassword };
+
+
+export { emailExists, userNameExists, validatePassword, existUserById };

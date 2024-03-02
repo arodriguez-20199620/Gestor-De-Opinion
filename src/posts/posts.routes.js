@@ -5,12 +5,16 @@ import { check } from "express-validator";
 import { validateFields, validateAuthor } from "../middlewares/validar-campos.js";
 import { validarJWT } from "../middlewares/validar-jwt.js";
 import { existingPost } from "../helpers/posts-validations.js";
+import { existUserById } from "../helpers/user-validations.js"
 
 // controlador
-import { createPosts, updatePosts, deletePost } from "./posts.controller.js";
+import { createPosts, updatePosts, deletePost, feedPost, userPosts } from "./posts.controller.js";
 
 
 const router = Router();
+
+router.get('/', feedPost);
+
 
 router.post('/',
     validarJWT,
