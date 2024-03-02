@@ -8,12 +8,15 @@ import { existingPost } from "../helpers/posts-validations.js";
 import { existUserById } from "../helpers/user-validations.js"
 
 // controlador
-import { createPosts, updatePosts, deletePost, feedPost, userPosts } from "./posts.controller.js";
+import { createPosts, updatePosts, deletePost, feedPost, feedPostByAuthor } from "./posts.controller.js";
 
 
 const router = Router();
 
 router.get('/', feedPost);
+
+router.get('/:userId', feedPostByAuthor);
+
 
 
 router.post('/',

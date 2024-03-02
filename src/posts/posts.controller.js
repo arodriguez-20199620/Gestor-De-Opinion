@@ -89,10 +89,45 @@ const feedPost = async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Error al obtener los posts.' });
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
+const feedPostByAuthor = async (req, res) => {
+    const { userId } = req.params;
+    const { limit, offset } = req.query;
+    const query = { state: true, author_id: userId };
+
+    try {
+        const [total, posts] = await Promise.all([
+            Posts.countDocuments(query),
+            Posts.find(query)
+                .skip(Number(offset))
+                .limit(Number(limit))
+                .populate('author_id', 'username')
+        ]);
+
+        const formattedPosts = posts.map(post => ({
+            _id: post._id,
+            title: post.title,
+            category: post.category,
+            text: post.text,
+            username: post.author_id.username,
+            creation_date: new Date(post.creation_date).toISOString().split('T')[0],
+        }));
+
+        res.status(200).json({
+            total,
+            posts: formattedPosts
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error when obtaining the author posts.' });
+    }
+};
+
+export { createPosts, updatePosts, deletePost, feedPost, feedPostByAuthor };
 
 
-export { createPosts, updatePosts, deletePost, feedPost, userPosts };
+
+

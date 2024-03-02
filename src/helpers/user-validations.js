@@ -34,6 +34,18 @@ const validatePassword = async (password = '') => {
     }
 };
 
+const existUserById = async (id = '') => {
+    try {
+        const existUserById = await User.findById(id);
+        if (!existUserById) {
+            throw new Error(`The user with the ${id} does not exist`);
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+
 
 
 export { emailExists, userNameExists, validatePassword, existUserById };
