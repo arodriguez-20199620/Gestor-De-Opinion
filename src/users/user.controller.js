@@ -15,11 +15,14 @@ const userPost = async (req, res) => {
     console.log('Your user is registered correctly');
 
     const userData = {
-        user
+        username: user.username,
+        mail: user.mail,
+        firstname: user.firstname,
+        lastname: user.lastname
     };
 
     res.status(201).json({
-        user: userData
+        userData
     });
 
 

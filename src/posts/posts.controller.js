@@ -1,6 +1,5 @@
 import Posts from './posts.model.js';
 import mongoose from 'mongoose';
-import Users from '../users/user.model.js'
 
 const createPosts = async (req, res) => {
     const userId = req.user._id;
@@ -9,8 +8,7 @@ const createPosts = async (req, res) => {
     try {
 
         const posts = new Posts({
-            title, category, text, author_id: new mongoose.Types.ObjectId(userId),
-
+            title, category, text, author_id: userId,
         });
 
         await posts.save();

@@ -2,10 +2,9 @@ import { Router } from "express";
 import { check } from "express-validator";
 
 // middlewares & helpers
-import { validateFields, validateAuthor } from "../middlewares/validar-campos.js";
+import { validateFields, validateAuthorToPost } from "../middlewares/validar-campos.js";
 import { validarJWT } from "../middlewares/validar-jwt.js";
 import { existingPost } from "../helpers/posts-validations.js";
-import { existUserById } from "../helpers/user-validations.js"
 
 // controlador
 import { createPosts, updatePosts, deletePost, feedPost, feedPostByAuthor } from "./posts.controller.js";
@@ -33,7 +32,7 @@ router.put('/:id', validarJWT,
         check("id", "The id is not a valid MongoDB format").isMongoId(),
         check("id").custom(existingPost),
         validateFields,
-        validateAuthor,
+        validateAuthorToPost,
     ], updatePosts);
 
 
@@ -42,7 +41,7 @@ router.delete('/:id', validarJWT,
         check("id", "The id is not a valid MongoDB format").isMongoId(),
         check("id").custom(existingPost),
         validateFields,
-        validateAuthor,
+        validateAuthorToPost,
     ], deletePost);
 
 export default router;

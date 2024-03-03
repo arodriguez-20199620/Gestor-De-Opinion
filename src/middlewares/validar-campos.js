@@ -14,7 +14,7 @@ const validateFields = (req, res, next) => {
     next();
 }
 
-const validateAuthor = async (req, res, next) => {
+const validateAuthorToPost = async (req, res, next) => {
     const postId = req.params.id;
     const userId = req.user.id;
 
@@ -38,4 +38,4 @@ const validateAuthor = async (req, res, next) => {
     }
 };
 
-export { validateFields, validateAuthor }
+export { validateFields, validateAuthorToPost }
