@@ -3,23 +3,29 @@ import User from '../users/user.model.js'
 import { generarJWT } from '../helpers/generate-jwt.js';
 
 export const login = async (req, res) => {
-    const { mail, password } = req.body;
+    const { identifier, password } = req.body;
 
     try {
-        //verificar si el email existe:
-        const user = await User.findOne({ mail });
+        const user = await User.findOne({
+            $or: [
+                { mail: identifier },
+                { username: identifier }
+            ]
+        });
 
         if (!user) {
             return res.status(400).json({
-                msg: "Incorrect credentials, Email does not exist in the database",
+                msg: "Incorrect credentials, Email or Username does not exist in the database",
             });
         }
-        //verificar si el ususario está activo
+
+        // verificar si el usuario está activo
         if (!user.status) {
             return res.status(400).json({
                 msg: "The user does not exist in the database",
             });
         }
+
         // verificar la contraseña
         const validPassword = bcryptjs.compareSync(password, user.password);
 
@@ -29,7 +35,7 @@ export const login = async (req, res) => {
             });
         }
 
-        //generar el JWT
+        // generar el JWT
         const token = await generarJWT(user.id);
 
         const userData = {
@@ -42,7 +48,6 @@ export const login = async (req, res) => {
             user: userData,
             token
         });
-
 
     } catch (e) {
         console.log(e);
