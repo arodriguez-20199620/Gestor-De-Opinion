@@ -7,16 +7,18 @@ import { validarJWT } from "../middlewares/validar-jwt.js";
 import { existingPost } from "../helpers/posts-validations.js";
 
 // controlador
-import { createPosts, updatePosts, deletePost, feedPost, feedPostByAuthor } from "./posts.controller.js";
+import { createPosts, updatePosts, deletePost, feedPost, postDetails } from "./posts.controller.js";
 
 
 const router = Router();
 
 router.get('/', feedPost);
 
-router.get('/:userId', feedPostByAuthor);
-
-
+router.get('/:postId',
+    [
+        check("postId", "The id is not a valid MongoDB format").isMongoId(),
+        check("postId").custom(existingPost),
+    ], postDetails);
 
 router.post('/',
     validarJWT,

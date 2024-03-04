@@ -26,8 +26,8 @@ const createComment = async (req, res) => {
                 title: post.title,
                 category: post.category,
                 text: post.text,
-                creation_date: post.creation_date,
                 author: postAuthor.username,
+                creation_date: new Date(post.creation_date).toISOString().split('T')[0],
             },
             comment: {
                 comment: comment.text,
@@ -44,5 +44,23 @@ const createComment = async (req, res) => {
         res.status(500).json('Internal Server Error');
     }
 }
+const deleteComment = async (req, res) => {
+    const commentId = req.params.commentId;
+    try {
+        await Comment.findByIdAndUpdate(commentId, { status: false });
 
-export { createComment }
+        const comment = await Comment.findOne({ _id: commentId });
+
+        res.status(200).json({
+            msg: 'comment was successfully deleted',
+            comment,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json('Internal Server Error');
+    }
+
+}
+
+
+export { createComment, deleteComment }

@@ -2,13 +2,14 @@ import { Router } from "express";
 import { check } from "express-validator";
 
 // validaciones
-import { existUserById } from "../helpers/user-validations.js";
 import { validarJWT } from "../middlewares/validar-jwt.js";
-import { validateFields } from "../middlewares/validar-campos.js";
+import { validateFields, validateAuthorToComment } from "../middlewares/validar-campos.js";
 import { existingPost } from "../helpers/posts-validations.js";
+import { existingComment } from "../helpers/comment-validations.js";
+
 
 // controlador
-import { createComment } from "./comments.controller.js";
+import { createComment, deleteComment } from "./comments.controller.js";
 
 const router = Router();
 
@@ -18,8 +19,18 @@ router.post('/:postId',
     [
         check("postId", "The id is not a valid MongoDB format").isMongoId(),
         check("postId").custom(existingPost),
-        check("text", "Obligatory field").not().isEmpty(),
+        check("title", "Obligatory field").not().isEmpty(),
         validateFields,
     ], createComment);
+
+router.delete('/:commentId',
+    validarJWT,
+    [
+        check("commentId", "The id is not a valid MongoDB format").isMongoId(),
+        check("commentId").custom(existingComment),
+        validateFields,
+        validateAuthorToComment,
+    ], deleteComment);
+
 
 export default router;

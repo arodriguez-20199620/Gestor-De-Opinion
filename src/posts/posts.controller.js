@@ -1,5 +1,7 @@
 import Posts from './posts.model.js';
-import mongoose from 'mongoose';
+import Comment from '../comments/comments.model.js';
+import User from '../users/user.model.js';
+
 
 const createPosts = async (req, res) => {
     const userId = req.user._id;
@@ -55,8 +57,6 @@ const deletePost = async (req, res) => {
         console.error(error);
         res.status(500).json('Internal Server Error');
     }
-
-
 }
 
 const feedPost = async (req, res) => {
@@ -69,15 +69,11 @@ const feedPost = async (req, res) => {
             Posts.find(query)
                 .skip(Number(offset))
                 .limit(Number(limit))
-                .populate('author_id', 'username')
         ]);
 
         const formattedPosts = posts.map(post => ({
             _id: post._id,
             title: post.title,
-            category: post.category,
-            text: post.text,
-            username: post.author_id.username,
             creation_date: new Date(post.creation_date).toISOString().split('T')[0],
         }));
 
@@ -91,40 +87,45 @@ const feedPost = async (req, res) => {
     }
 };
 
-const feedPostByAuthor = async (req, res) => {
-    const { userId } = req.params;
-    const { limit, offset } = req.query;
-    const query = { state: true, author_id: userId };
-
+const postDetails = async (req, res) => {
     try {
-        const [total, posts] = await Promise.all([
-            Posts.countDocuments(query),
-            Posts.find(query)
-                .skip(Number(offset))
-                .limit(Number(limit))
-                .populate('author_id', 'username')
-        ]);
+        const postId = req.params.postId;
+        const post = await Posts.findById(postId);
+        const comments = await Comment.find({ postId: postId });
 
-        const formattedPosts = posts.map(post => ({
-            _id: post._id,
-            title: post.title,
-            category: post.category,
-            text: post.text,
-            username: post.author_id.username,
-            creation_date: new Date(post.creation_date).toISOString().split('T')[0],
-        }));
+        const postAuthor = await User.findOne({ _id: post.author_id });
 
-        res.status(200).json({
-            total,
-            posts: formattedPosts
-        });
+        const commentsDetails = await Promise.all(comments
+            .filter(comment => comment.status === true)
+            .map(async comment => {
+                const commentAuthor = await User.findOne({ _id: comment.author_id });
+                return {
+                    id: comment._id,
+                    comment: comment.text,
+                    author: commentAuthor.username,
+                };
+            }));
+
+        const details = {
+            post: {
+                title: post.title,
+                category: post.category,
+                text: post.text,
+                author: postAuthor.username,
+                creation_date: new Date(post.creation_date).toISOString().split('T')[0],
+            },
+            comments: commentsDetails,
+        };
+
+        res.status(200).json({ details });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Error when obtaining the author posts.' });
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 };
 
-export { createPosts, updatePosts, deletePost, feedPost, feedPostByAuthor };
+
+export { createPosts, updatePosts, deletePost, feedPost, postDetails };
 
 
 

@@ -1,5 +1,6 @@
 import { validationResult } from "express-validator";
 import Posts from "../posts/posts.model.js";
+import Comments from "../comments/comments.model.js";
 
 const validateFields = (req, res, next) => {
     try {
@@ -19,17 +20,13 @@ const validateAuthorToPost = async (req, res, next) => {
     const userId = req.user.id;
 
     try {
-        const existingPost = await Posts.findById(postId);
+        const post = await Posts.findById(postId);
 
-        if (!existingPost) {
-            return res.status(404).json({ error: 'Post not found' });
-        }
-
-        if (existingPost.author_id.toString() !== userId) {
+        if (post.author_id.toString() !== userId) {
             return res.status(403).json({ error: 'You are not the author of this post' });
         }
 
-        req.post = existingPost;
+        req.post = post;
 
         next();
     } catch (error) {
@@ -38,4 +35,24 @@ const validateAuthorToPost = async (req, res, next) => {
     }
 };
 
-export { validateFields, validateAuthorToPost }
+const validateAuthorToComment = async (req, res, next) => {
+    const commentId = req.params.commentId;
+    const userId = req.user.id;
+
+    try {
+        const comments = await Comments.findById(commentId);
+
+        if (comments.author_id.toString() !== userId) {
+            return res.status(403).json({ error: 'You are not the author of this comment' });
+        }
+        req.comment = comments;
+
+        next();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
+export { validateFields, validateAuthorToPost, validateAuthorToComment }
