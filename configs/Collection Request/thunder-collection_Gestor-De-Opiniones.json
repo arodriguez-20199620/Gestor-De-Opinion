@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Gestor-De-Opiniones",
-    "dateExported": "2024-03-04T04:41:50.092Z",
+    "dateExported": "2024-03-04T05:10:15.487Z",
     "version": "1.1",
     "folders": [
         {
@@ -43,12 +43,12 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2024-03-02T03:07:39.833Z",
-            "modified": "2024-03-04T03:15:53.445Z",
+            "modified": "2024-03-04T04:50:46.513Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"username\": \"asanchez\",\n  \"mail\": \"asanchez@kinal.edu.gt\",\n  \"password\": \"kinal$2024$$\",\n  \"firstname\": \"Angel\",\n  \"lastname\": \"Rodriguez\"\n}",
+                "raw": "{\n  \"username\": \"asanchez\",\n  \"mail\": \"asanchez@kinal.edu.gt\",\n  \"password\": \"kinal$2024$$\",\n  \"firstname\": \"Anderson\",\n  \"lastname\": \"Sanchez\"\n}",
                 "form": []
             },
             "tests": []
@@ -86,12 +86,12 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2024-03-02T03:07:39.834Z",
-            "modified": "2024-03-04T04:37:10.338Z",
+            "modified": "2024-03-04T04:55:06.029Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"identifier\": \"arodriguez@kinal.edu.gt\",\n  \"password\": \"baloo$2024$$\"\n}",
+                "raw": "{\n  \"identifier\": \"arodriguez\",\n  \"password\": \"kinal$2024$$\"\n}",
                 "form": []
             },
             "tests": []
@@ -105,17 +105,17 @@
             "method": "POST",
             "sortNum": 40000,
             "created": "2024-03-02T03:07:39.836Z",
-            "modified": "2024-03-04T03:15:35.287Z",
+            "modified": "2024-03-04T04:59:10.791Z",
             "headers": [
                 {
                     "name": "x-token",
-                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NWU1M2NiYzdiMDI0ZmViNmQzMWMzYzciLCJpYXQiOjE3MDk1MjIxMTUsImV4cCI6MTcwOTUyNTcxNX0.gEcPP4VTl1qPeHxs9ESFZJlxvz8P5QLJ_vMr1d80aQg"
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NWU1NTMyNjI3Mjg0ZmYxMGViNjFjNzEiLCJpYXQiOjE3MDk1Mjc5MDUsImV4cCI6MTcwOTUzMTUwNX0.lSRYo1iJmN8eFxTUvBAb7Gq_VwLHolyQ1GMxOGGMo9k"
                 }
             ],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"title\": \"El mejor anime del 2023\",\n  \"category\": \"Anime\",\n  \"text\": \"Cyberpunkg edgerunner gana a mejor anime del año en el año 2023\"\n}",
+                "raw": "{\n  \"title\": \"Anime del año 2023\",\n  \"category\": \"Anime\",\n  \"text\": \"Cyberpunk edgerunners es consagrado como el anime del año 2023\"\n}",
                 "form": []
             },
             "tests": []
@@ -129,7 +129,7 @@
             "method": "PUT",
             "sortNum": 90000,
             "created": "2024-03-02T03:07:39.837Z",
-            "modified": "2024-03-04T04:39:11.523Z",
+            "modified": "2024-03-04T05:01:17.558Z",
             "headers": [
                 {
                     "name": "x-token",
@@ -139,7 +139,7 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"title\": \"Cocina Creativa con Inteligencia Artificial\",\n  \"category\": \"Gastronomía\",\n  \"text\": \"¡Prepárate para una experiencia culinaria única! En esta demostración, exploraremos cómo la inteligencia artificial puede inspirar la creatividad en la cocina. Desde la generación de recetas innovadoras hasta la personalización de platillos según tus preferencias, descubre cómo la tecnología está elevando el arte de la gastronomía a nuevas alturas.\"\n}",
+                "raw": "{\n  \"title\": \"Titulo\",\n  \"category\": \"Categoria\",\n  \"text\": \"Descripcion\"\n}",
                 "form": []
             },
             "tests": []
@@ -182,21 +182,21 @@
             "colId": "e0775a8e-e375-433c-aeb2-faecb2da8739",
             "containerId": "10e76b00-1526-4e55-a5d1-7d723136841c",
             "name": "Create-Comment",
-            "url": "http://localhost:3000/opinionmanager/v1/comments/65e53cd77b024feb6d31c3cb",
+            "url": "http://localhost:3000/opinionmanager/v1/comments/65e5551e27284ff10eb61c7a",
             "method": "POST",
             "sortNum": 140000,
             "created": "2024-03-03T04:59:05.425Z",
-            "modified": "2024-03-04T03:30:55.596Z",
+            "modified": "2024-03-04T05:03:13.234Z",
             "headers": [
                 {
                     "name": "x-token",
-                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NWU1M2NlYTdiMDI0ZmViNmQzMWMzY2YiLCJpYXQiOjE3MDk1MjIxNjcsImV4cCI6MTcwOTUyNTc2N30.nxiybVPSzotZq9ZVbu8a_Yodb7VCHMswBtQhtUYMQLk"
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NWU1NTMwNTI3Mjg0ZmYxMGViNjFjNmQiLCJpYXQiOjE3MDk1MjgxMDYsImV4cCI6MTcwOTUzMTcwNn0.zj285AEW9YV3l-JdeLy3aJ0z43jq_pcPd37fomZ7exg"
                 }
             ],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"text\": \"Puta\"\n}",
+                "raw": "{\n  \"text\": \"Mi personaje favorito era david y el episodio que mas me gusto fue el capitulo 4\"\n}",
                 "form": []
             },
             "tests": []
@@ -206,11 +206,11 @@
             "colId": "e0775a8e-e375-433c-aeb2-faecb2da8739",
             "containerId": "ecdd22f9-71c0-499d-8cdf-2901523fcdf2",
             "name": "Post-Details",
-            "url": "http://localhost:3000/opinionmanager/v1/posts/65e1da31e9703730776bb23f",
+            "url": "http://localhost:3000/opinionmanager/v1/posts/65e5551e27284ff10eb61c7a",
             "method": "GET",
             "sortNum": 170000,
             "created": "2024-03-03T06:03:10.904Z",
-            "modified": "2024-03-04T04:39:24.103Z",
+            "modified": "2024-03-04T05:03:18.999Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -243,7 +243,7 @@
             "method": "PUT",
             "sortNum": 200000,
             "created": "2024-03-04T04:22:32.455Z",
-            "modified": "2024-03-04T04:28:04.171Z",
+            "modified": "2024-03-04T05:10:05.648Z",
             "headers": [
                 {
                     "name": "x-token",
@@ -253,7 +253,7 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"text\": \"cerote\"\n}",
+                "raw": "{\n  \"text\": \"texto\"\n}",
                 "form": []
             },
             "tests": []
