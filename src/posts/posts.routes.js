@@ -18,6 +18,7 @@ router.get('/:postId',
     [
         check("postId", "The id is not a valid MongoDB format").isMongoId(),
         check("postId").custom(existingPost),
+        validateFields,
     ], postDetails);
 
 router.post('/',
