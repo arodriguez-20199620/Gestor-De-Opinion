@@ -8,7 +8,6 @@ const createComment = async (req, res) => {
     const { text } = req.body;
 
     try {
-
         const post = await Posts.findOne({ _id: postId });
 
         const comment = new Comment({
@@ -63,4 +62,23 @@ const deleteComment = async (req, res) => {
 }
 
 
-export { createComment, deleteComment }
+const updateComment = async (req, res) => {
+    const commentId = req.params.commentId;
+    const { _id, author_id, ...rest } = req.body;
+
+    try {
+        await Comment.findByIdAndUpdate(commentId, rest)
+
+        const comment = await Comment.findOne({ _id: commentId })
+
+        res.status(200).json({
+            comment
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json('Internal Server Error');
+    }
+}
+
+
+export { createComment, deleteComment, updateComment }
